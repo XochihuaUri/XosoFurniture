@@ -6,18 +6,24 @@ namespace XosoFurniture_App.Models
 {
     public class Product
     {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string ProductDescription { get; set; }
-        public string ProductPhone { get; set; }
-        public float ProductPrice { get; set; }
-        public bool IsTheProductCreditable { get; set; }
-        public bool IsMonthsWithoutInterest { get; set; }
-        public float ProductRate { get; set; }
-        public List<Product> ProductComments { get; set; }
-        public Features ProductFeatures { get; set; }
-        public string PaymentMethod { get; set; }
-        public int ProductStock { get; set; }
+        private int productStock;
+        private float productPrice;
+        private string productDescription;
+        private string productName;
+        private string productId;
+
+        public Product(string productId, string productName, float productPrice)
+        {
+            this.productId = productId;
+            this.productName = productName;
+            this.productPrice = productPrice;
+        }
+
+        public string ProductId { get { return productId;} }
+        public string ProductName { get{return productName; } set { productName = value; } }
+        public string ProductDescription { get { return productDescription; } set { productDescription = value; } }
+        public float ProductPrice { get{ return productPrice; } set{ productPrice = value; } }
+        public int ProductStock { get{ return productStock; } set{ productStock = value; } }
 
     }
 }

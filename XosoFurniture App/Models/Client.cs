@@ -6,52 +6,49 @@ namespace XosoFurniture_App.Models
 {
     public class Client
     {
-        private String ClientId { get; set; }
-        private String ClientName { get; set; }
-        private String ClientAddres { get; set; }
-        private string ClientPhone { get; set; }
-        private string ClientEMail { get; set; }
-        private string ClientCard { get; set; }
-        private bool IsSubscribed { get; set; }
-        private List<Product> ShoppingCart { get; set; }
-        private List<Purchase> Purchases { get; set; }
+        private ShoppingCart shoppingCart;
+        private string clientId;
+        private string clientName;
+        public String ClientId { get{return clientId;} }
+        public String ClientName { get{return clientName; } set{ clientName = value;} }
+        public ShoppingCart ShoppingCart{get{ return shoppingCart;}}
 
-        public void AddToShoppingCart(Product product)
+
+
+        public delegate void ClientDelegate(ShoppingCart shoppingCart);
+        //private ClientDelegate clientDelegateBuy;
+        //public ClientDelegate ClientDelegateBuy{set{ clientDelegateBuy = value; } get{ return clientDelegateBuy;}}
+
+        private event ClientDelegate clientEvent;
+        public event ClientDelegate ClientEvent{add{ clientEvent += value;} remove{ clientEvent -= value;}}
+
+
+        public Client(string clientId, string clientName, ShoppingCart shoppingCart)
         {
-            ShoppingCart.Add(product);
+            this.clientId = clientId;
+            this.clientName = clientName;
+            this.shoppingCart = shoppingCart;
+            //ClientDelegate del1 = new ClientDelegate(UnloadHandler);
+            //clientDelegateBuy = del1;
+            ClientEvent += UnloadHandler;
         }
 
-        public void BuyShoppingCart()
+        public float PayShoppingCart()
         {
-            //check it out
-            Purchases.Add(new Purchase
-            {
-                IdPurchased = 1,
-                TimeOfPurchase = DateTime.Now,
-                ShipmentCost = 200,
-                ProductsPurchased = null
-
-            });
-            foreach (Product product in ShoppingCart)
-            {
-                Console.WriteLine(product.ProductName);
-                Purchases.
-
-                ShoppingCart.Remove(product);
-            }
-            
+            return shoppingCart.GetTotal();
         }
 
-        public struct Purchase
+        public void GoToPayToCashier(ShoppingCart shoppingCart)
         {
-            public List<Product> ProductsPurchased { get; set; }
-            public DateTime TimeOfPurchase { get; set; }
-            public int IdPurchased { get; set; }
-            public double ShipmentCost { get; set; }
-
+            Console.WriteLine("Going to the cashier to pay");
+            //clientDelegateBuy(shoppingCart);
+            clientEvent(shoppingCart);
         }
 
-
+        public void UnloadHandler(ShoppingCart shoppingCart)
+        {
+            Console.WriteLine("Unloading the shopping cart with " + shoppingCart.Products.Count + " items");
+        }
     }
 
 }
