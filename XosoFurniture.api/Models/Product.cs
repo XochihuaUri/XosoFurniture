@@ -2,23 +2,23 @@
 {
     public class Product
     {
-        private int productStock;
-        private float productPrice;
-        private string productDescription;
-        private string productName;
-        private int productId;
+        public int productStock { get; set; }
+        public float productPrice { get; set; }
+        public string productDescription { get; set; }
+        public string productName { get; set; }
+        public int productId { get; set; }
 
-        public Product(int productId, string productName, float productPrice)
+        public Product(int productId, string productName, float productPrice, int productStock, string productDescription)
         {
             this.productId = productId;
             this.productName = productName;
             this.productPrice = productPrice;
+            this.productStock = productStock;
+            this.productDescription = productDescription;
         }
+        public Product()
+        {
 
-        public int ProductId { get { return productId; } set { productId = value; } }
-        public string ProductName { get { return productName; } set { productName = value; } }
-        public string ProductDescription { get { return productDescription; } set { productDescription = value; } }
-        public float ProductPrice { get { return productPrice; } set { productPrice = value; } }
-        public int ProductStock { get { return productStock; } set { productStock = value; } }
+        }
     }
 }

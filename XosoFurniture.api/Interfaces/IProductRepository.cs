@@ -8,7 +8,7 @@ namespace XosoFurniture.api.Interfaces
         IEnumerable<Product> GetAll();
         Product Get(int id);
         Product Add(Product item);
-        string Remove(int id);
+        void Remove(int id);
         bool Update(Product item);
     }
 }

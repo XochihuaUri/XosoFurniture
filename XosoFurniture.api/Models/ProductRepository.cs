@@ -6,16 +6,23 @@ namespace XosoFurniture.api.Models
 {
     public class ProductRepository : IProductRepository
     {
-        private List<Product> products = new List<Product>();
-        private int _nextId = 1;
-
-        public ProductRepository()
+        public List<Product> products = new List<Product>() { new Product()
         {
-            Add(new Product(1, "First Product", 10));
-            Add(new Product(2, "Second Product", 20));
-            Add(new Product(3, "Third Product", 30));
-            Add(new Product(4, "Fourth Product", 40));
-        }
+            productDescription = "des",
+            productId = 1,
+            productName = "First",
+            productPrice= 10,
+            productStock=1
+        } ,
+            new Product()
+        {
+            productDescription = "des2",
+            productId = 2,
+            productName = "Second",
+            productPrice= 20,
+            productStock=2
+        } , };
+
 
         public IEnumerable<Product> GetAll()
         {
@@ -24,7 +31,7 @@ namespace XosoFurniture.api.Models
 
         public Product Get(int id)
         {
-            return products.Find(p => p.ProductId == id);
+            return products.Find(p => p.productId == id);
         }
 
         public Product Add(Product item)
@@ -33,20 +40,13 @@ namespace XosoFurniture.api.Models
             {
                 throw new ArgumentNullException("item");
             }
-            item.ProductId = _nextId++;
             products.Add(item);
             return item;
         }
 
-        public string Remove(int id)
+        public void Remove(int id)
         {
-            products.RemoveAll(p => p.ProductId == id);
-            if(products.Find(p => p.ProductId == id) != null)
-            {
-                return ("Product with id: " + id + " was not removed");
-            }
-            ;
-            return ("Product with id: " + id + " was removed");
+            products.RemoveAll(p => p.productId == id);
         }
 
         public bool Update(Product item)
@@ -55,7 +55,7 @@ namespace XosoFurniture.api.Models
             {
                 throw new ArgumentNullException("item");
             }
-            int index = products.FindIndex(p => p.ProductId == item.ProductId);
+            int index = products.FindIndex(p => p.productId == item.productId);
             if (index == -1)
             {
                 return false;

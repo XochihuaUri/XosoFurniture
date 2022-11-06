@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using XosoFurniture.api.Models;
@@ -10,16 +11,7 @@ namespace XosoFurniture.api.Controllers
     [ApiController]
     public class Products2Controller : ControllerBase
     {
-        private ProductRepository _repository;
-
-        //public Products2Controller(ProductRepository repository)
-        //{
-        //    _repository = repository;
-        //}
-        public Products2Controller()
-        {
-            _repository = new ProductRepository();
-        }
+        private ProductRepository _repository = new ProductRepository();
 
         [HttpGet]
         public IEnumerable<Product> GetAll()
@@ -35,28 +27,45 @@ namespace XosoFurniture.api.Controllers
         }
 
         [HttpPost]
-        public Product Create([FromBody] Product product)
+        public IActionResult Create(Product product)
         {
-            Product newProd = new Product(product.ProductId, product.ProductName, product.ProductPrice);
+            Product newProd = new Product()
+            {
+                productDescription = product.productDescription,
+                productId = product.productId,
+                productName= product.productName,
+                productPrice = product.productPrice,
+                productStock = product.productStock
+            };
             _repository.Add(newProd);
-            return _repository.Get(newProd.ProductId);
+            //return Ok(_repository.Get(newProd.productId));
+            return Ok(_repository.GetAll());
         }
 
         [HttpPut]
         [Route("{id}")]
-        public Product Update(int id, [FromBody] Product product)
+        public IActionResult Update(Product product)
         {
-            Product newProduct = new Product(id, product.ProductName, product.ProductPrice);
-            _repository.Update(newProduct);
-            return _repository.Get(product.ProductId);
+            Product newProd = new Product()
+            {
+                productDescription = product.productDescription,
+                productId = product.productId,
+                productName = product.productName,
+                productPrice = product.productPrice,
+                productStock = product.productStock
+            };
+            _repository.Update(newProd);
+            //return Ok(_repository.Get(newProd.productId));
+            return Ok(_repository.GetAll());
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public string Delete(int id)
+        public IActionResult Delete(int id)
         {
-            string res = _repository.Remove(id);
-            return res;
+            _repository.Remove(id);
+            //return Ok(_repository.Get(id));
+            return Ok(_repository.GetAll());
         }
     }
 }
