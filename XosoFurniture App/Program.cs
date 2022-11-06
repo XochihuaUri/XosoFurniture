@@ -17,7 +17,7 @@ namespace XosoFurniture_App
 
             Cashier cashier = new Cashier(client1, "employee James");
 
-            client1.GoToPayToCashier(shoppingCart);
+            client1.GoToPayToCashier(client1.ShoppingCart);
         }
     }
 }

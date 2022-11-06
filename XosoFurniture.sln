@@ -5,7 +5,10 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XosoFurniture App", "XosoFurniture App\XosoFurniture App.csproj", "{3C910A10-C5AE-40D2-A401-8A2A00ECDBC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XosoFurniture.api", "XosoFurniture.api\XosoFurniture.api.csproj", "{B5377D1D-378B-4ECE-B42A-9A5D6ABDA514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XosoFurniture.api", "XosoFurniture.api\XosoFurniture.api.csproj", "{B5377D1D-378B-4ECE-B42A-9A5D6ABDA514}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C910A10-C5AE-40D2-A401-8A2A00ECDBC7} = {3C910A10-C5AE-40D2-A401-8A2A00ECDBC7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
